@@ -25,6 +25,10 @@ venv/
 env/
 ENV/
 
+# Claude AI
+.claude/
+CLAUDE.md
+
 # IDEs
 .vscode/
 .idea/
