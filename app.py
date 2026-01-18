@@ -40,12 +40,8 @@ try:
         except:
             print("⚠ VAE tiling not available")
 
-        # Compile model with torch.compile for speed (PyTorch 2.0+)
-        try:
-            pipe.transformer = torch.compile(pipe.transformer, mode="reduce-overhead", fullgraph=True)
-            print("✓ Model compiled with torch.compile")
-        except Exception as e:
-            print(f"⚠ torch.compile not available: {e}")
+        # torch.compile will be applied on-demand based on user choice
+        print("✓ torch.compile available (can be enabled in UI)")
     else:
         # CPU mode - just keep model on CPU without offloading
         print("⚠ Running on CPU - this will be slow. Install CUDA for GPU acceleration.")
@@ -55,9 +51,20 @@ try:
 except Exception as e:
     print(f"Error loading model: {e}")
 
-def generate_image(prompt, input_image, width, height, guidance_scale, seed, preserve_dimensions):
+def generate_image(prompt, input_image, preserve_dimensions, width, height, guidance_scale, seed, use_torch_compile):
     if pipe is None:
         return None, "❌ Error: Model not loaded."
+
+    # Apply torch.compile if requested and not already compiled
+    global compiled_transformer
+    if use_torch_compile and DEVICE == "cuda":
+        if not hasattr(pipe.transformer, '_orig_mod'):  # Check if not already compiled
+            try:
+                print("⏳ Compiling model with torch.compile (first time takes 10-15 min)...")
+                pipe.transformer = torch.compile(pipe.transformer, mode="reduce-overhead", fullgraph=True)
+                print("✓ Model compiled successfully")
+            except Exception as e:
+                print(f"⚠ torch.compile failed: {e}")
 
     # Use GPU for generator if available
     generator_device = DEVICE if DEVICE == "cuda" else "cpu"
@@ -143,9 +150,15 @@ with gr.Blocks(title="FLUX.2-klein-4B Generator") as app:
             )
 
             gr.Markdown("💡 **Note**: Distilled model uses fixed 4-step inference for optimal speed")
-                
+
             seed_input = gr.Number(value=-1, label="Seed (-1 for random)", precision=0)
-            
+
+            torch_compile_checkbox = gr.Checkbox(
+                label="Enable torch.compile (30-50% faster)",
+                value=False,
+                info="⚠️ First generation takes 10-15 min for warmup, then much faster"
+            )
+
             generate_btn = gr.Button("🚀 Generate / Edit", variant="primary")
             
         with gr.Column():
@@ -154,7 +167,7 @@ with gr.Blocks(title="FLUX.2-klein-4B Generator") as app:
 
     generate_btn.click(
         fn=generate_image,
-        inputs=[prompt_input, input_image, width_slider, height_slider, guidance_slider, seed_input, preserve_dims_checkbox],
+        inputs=[prompt_input, input_image, preserve_dims_checkbox, width_slider, height_slider, guidance_slider, seed_input, torch_compile_checkbox],
         outputs=[output_image, status_text]
     )
 
