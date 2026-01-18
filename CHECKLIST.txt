@@ -1,0 +1,165 @@
+================================================================================
+  FLUX.2-klein-4B - CHECKLIST D'INSTALLATION
+================================================================================
+
+Suivez cette liste étape par étape pour une installation sans problème.
+
+AVANT DE COMMENCER
+------------------
+☐ Windows 10 ou 11
+☐ 16 GB de RAM minimum
+☐ 20 GB d'espace disque libre
+☐ Connexion Internet stable
+☐ Carte NVIDIA avec 8GB+ VRAM (optionnel mais recommandé)
+
+
+ÉTAPE 1: INSTALLER PYTHON
+--------------------------
+☐ Aller sur: https://www.python.org/downloads/
+☐ Télécharger Python 3.10 ou 3.11 (PAS 3.12+)
+☐ Lancer l'installateur
+☐ ⚠️ COCHER "Add Python to PATH"
+☐ Cliquer sur "Install Now"
+☐ Attendre la fin de l'installation
+☐ Redémarrer l'ordinateur (recommandé)
+
+Vérifier:
+☐ Ouvrir invite de commandes (Win+R, taper "cmd")
+☐ Taper: python --version
+☐ Doit afficher "Python 3.10.x" ou "Python 3.11.x"
+
+
+ÉTAPE 2: INSTALLER GIT
+-----------------------
+☐ Aller sur: https://git-scm.com/downloads
+☐ Télécharger Git pour Windows
+☐ Lancer l'installateur
+☐ Utiliser les paramètres par défaut (Next, Next, Next...)
+☐ Attendre la fin de l'installation
+☐ Redémarrer l'ordinateur (recommandé)
+
+Vérifier:
+☐ Ouvrir invite de commandes
+☐ Taper: git --version
+☐ Doit afficher "git version x.x.x"
+
+
+ÉTAPE 3: INSTALLER DRIVERS NVIDIA (SI APPLICABLE)
+--------------------------------------------------
+☐ Vérifier si vous avez une carte NVIDIA
+☐ Aller sur: https://www.nvidia.com/drivers
+☐ Sélectionner votre carte graphique
+☐ Télécharger le driver le plus récent
+☐ Installer le driver
+☐ Redémarrer l'ordinateur (obligatoire)
+
+Vérifier:
+☐ Ouvrir invite de commandes
+☐ Taper: nvidia-smi
+☐ Doit afficher les infos de votre GPU
+
+
+ÉTAPE 4: INSTALLER FLUX.2-klein-4B
+-----------------------------------
+☐ Télécharger/copier le dossier du projet
+☐ Double-cliquer sur "install.bat"
+☐ Lire les messages et suivre les instructions
+☐ Attendre 10-30 minutes (téléchargement ~10 GB)
+☐ Choisir "Y" pour télécharger le modèle maintenant (recommandé)
+☐ Attendre que "Installation Complete!" apparaisse
+
+Ce que vous devriez voir:
+☐ [OK] Python x.x.x detected
+☐ [OK] NVIDIA GPU detected (si carte NVIDIA)
+☐ [OK] PyTorch installed
+☐ [OK] Gradio installed
+☐ [OK] Diffusers installed
+☐ [SUCCESS] GPU acceleration is enabled! (si carte NVIDIA)
+
+
+ÉTAPE 5: DÉMARRER L'APPLICATION
+--------------------------------
+☐ Double-cliquer sur "run.bat"
+☐ Une fenêtre noire s'ouvre (ne pas la fermer!)
+☐ Attendre "Model loaded successfully!"
+☐ Le navigateur s'ouvre automatiquement
+☐ L'interface apparaît à: http://127.0.0.1:7860
+
+
+PREMIER TEST
+------------
+☐ Dans "Prompt", taper: "a cute cat wearing sunglasses"
+☐ Laisser les autres paramètres par défaut
+☐ Cliquer sur "🚀 Generate / Edit"
+☐ Attendre 5-30 secondes
+☐ Une image de chat avec lunettes devrait apparaître!
+
+
+EN CAS DE PROBLÈME
+------------------
+
+Python non trouvé:
+☐ Réinstaller Python 3.10 ou 3.11
+☐ Bien cocher "Add Python to PATH"
+☐ Redémarrer l'ordinateur
+☐ Relancer install.bat
+
+Git non trouvé:
+☐ Installer Git depuis https://git-scm.com/downloads
+☐ Redémarrer l'ordinateur
+☐ Relancer install.bat
+
+GPU non détecté:
+☐ Installer drivers NVIDIA: https://www.nvidia.com/drivers
+☐ Redémarrer l'ordinateur
+☐ Relancer "install.bat" (il réparera automatiquement CUDA)
+☐ Tester l'application avec run.bat
+
+Génération très lente (>1 minute):
+☐ Vous êtes probablement en mode CPU
+☐ Installer drivers NVIDIA
+☐ Relancer install.bat (réparation automatique)
+☐ Tester à nouveau
+
+Erreur "Out of memory":
+☐ Réduire Width et Height (essayer 768x768)
+☐ Fermer les autres applications
+☐ Redémarrer l'ordinateur
+
+Tout est cassé / rien ne marche:
+☐ Double-cliquer sur "reinstall.bat"
+☐ Cela supprime tout et réinstalle proprement
+☐ Attendre 20-30 minutes
+☐ Tester à nouveau
+
+
+FICHIERS UTILES
+---------------
+install.bat         -> Installation complète (gère tout automatiquement!)
+run.bat             -> Démarrer l'application
+reinstall.bat       -> Réinstallation complète si problèmes
+README.md           -> Documentation complète (anglais)
+GUIDE_INSTALLATION.md -> Guide détaillé (français)
+CHECKLIST.txt       -> Ce fichier (liste de vérification)
+
+
+VITESSES ATTENDUES (première génération)
+-----------------------------------------
+RTX 4090:  ~5-8 secondes
+RTX 3080:  ~10-15 secondes
+RTX 3060:  ~15-20 secondes
+GTX 1660:  ~25-35 secondes
+CPU:       1-3 minutes (très lent!)
+
+
+BESOIN D'AIDE?
+--------------
+1. Lire GUIDE_INSTALLATION.md (français, très détaillé)
+2. Lire README.md (anglais)
+3. Vérifier que toutes les étapes sont cochées ici
+4. Essayer reinstall.bat si rien ne marche
+
+
+================================================================================
+Bon courage! Une fois installé, vous pourrez créer des images incroyables! 🎨
+================================================================================

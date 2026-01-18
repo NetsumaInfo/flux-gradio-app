@@ -1,0 +1,15 @@
+# PyTorch with CUDA 12.4
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch
+torchvision
+torchaudio
+
+# Diffusers from GitHub (required for Flux2KleinPipeline)
+git+https://github.com/huggingface/diffusers.git
+
+# Other dependencies
+gradio
+transformers
+accelerate
+sentencepiece
+protobuf
